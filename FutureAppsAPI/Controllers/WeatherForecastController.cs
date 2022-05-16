@@ -36,4 +36,25 @@ namespace FutureAppsAPI.Controllers
             .ToArray();
         }
     }
+
+
+    [ApiController]
+    [Route("[controller]")]
+    public class RelicController : ControllerBase
+    {
+        private readonly ILogger<RelicController> _logger;
+
+        public RelicController(ILogger<RelicController> logger)
+        {
+            _logger = logger;
+        }
+
+        [HttpGet]
+        public string Get()
+        {
+            NewRelic.Api.Agent.NewRelic.NoticeError(new Exception("Divide by zero exception"));
+
+            return "Hello World";
+        }
+    }
 }
